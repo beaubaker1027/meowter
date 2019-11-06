@@ -1,9 +1,9 @@
-### Meowter
+# Meowter
 Meowter is a cat themed client side router.
 ### Installation
-To install, add [meowter.min.js](https://github.com/beaubaker1027) within your app and add to the header
+To install, add [meowter.min.js](https://github.com/beaubaker1027/meowter/blob/master/meowter.min.js) within your app and add to the header
 
-(If you're a curious cat you can view the unminified version here: [meowter.js](https://github.com/beaubaker1027))
+(If you're a curious cat you can view the unminified version here: [meowter.js](https://github.com/beaubaker1027/meowter/blob/master/meowter.js))
 ```
 <script type="text/javascript" src="scripts/lib/meowter.min.js"></script>
 ```
@@ -33,17 +33,17 @@ Meowter.meow("/", function(){
 #### *Wildcards*
 Default Syntax:
 ```
-Meowter.meow("/cat/(=◕ᆽ◕ฺ=)", function(breed){
+Meowter.meow("/cat/(=◕ฺᆽ◕ฺ=)", function(breed){
     console.log(breed);
 });
 ```
-In this example, `(=◕ᆽ◕ฺ=)` works as a wildcard.  The wildcard will pass the value of that path segement as an arguement in the route action.  
+In this example, `(=◕ฺᆽ◕ฺ=)` works as a wildcard.  The wildcard will pass the value of that path segement as an arguement in the route action.  
 For example, navigating to the route `/cat/tabby` will pass 'tabby' as the breed arguement of the action above.
 
 #### *Multiple Wildcards*
 Default Syntax:
 ```
-Meowter.meow("/cat/(=◕ᆽ◕ฺ=)/names/(=◕ᆽ◕ฺ=)", function(breed, name){
+Meowter.meow("/cat/(=◕ฺᆽ◕ฺ=)/names/(=◕ฺᆽ◕ฺ=)", function(breed, name){
     console.log(`${name} is a ${breed} cat`);
 })
 ```
@@ -67,7 +67,7 @@ Syntax:
 ```
 Meowter.setWildMeow(string)
 ```
-setWildMeow is used to replace the default wildcard `(=◕ᆽ◕ฺ=)`  Simply pass in the new wildcard of your choice.
+setWildMeow is used to replace the default wildcard `(=◕ฺᆽ◕ฺ=)`  Simply pass in the new wildcard of your choice.
 ```
 Meowter.setWildMeow('*');
 
