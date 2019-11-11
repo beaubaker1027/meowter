@@ -75,3 +75,9 @@ Meowter.meow("/cat/*/names/*", function(breed, name){
     console.log(`${name} is a ${breed} cat`);
 })
 ```
+
+### SubRoutes
+Meowter can be configured with sub routes.  Meowter will look to read the base tag in the html file on load.
+```
+<base href="/subroute/" target="_self">
+```

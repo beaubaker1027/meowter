@@ -9,7 +9,9 @@
 }(typeof self !== 'undefined' ? self : this, function (window) {
 
     //storage container for all routes
-    const routes = {};
+    const routes = {
+      '/':[]
+    };
 
     /**
      *  shouldPreventRoute should be a function that will return
@@ -22,6 +24,7 @@
      *  this value denotes a wildcard in a url
      */
     let wildcard = "(=◕ᆽ◕ฺ=)";
+    const base = getBaseRoute();
 
     //PUBLIC FUNCTIONS
 
@@ -67,6 +70,18 @@
 
     //PRIVATE FUNCTIONS
 
+    function getBaseRoute(){
+      let baseTag = document.head.querySelector('base');
+      if(baseTag){
+        let url = new URL(baseTag.href);
+        return url.pathname.replace(/\/$/,"");
+      }
+      return "";
+    };
+
+    function removeBase(path, base){
+        return path.replace(base, "");
+    };
     /**
      *  filters pathnames from an array that match a given pathname
      *  @param {string} pathname - the route to associate with an action
@@ -74,6 +89,7 @@
      *  @returns {array} - an array that contains all matched routes and their wildcard values
      */
     function findMatchedRoutes(pathname, routesArray){
+      pathname = removeBase(pathname, base);
       let paths = pathname.split('/').filter(function(path){
         return path;
       })
@@ -115,18 +131,20 @@
         }
         return matches;
       }, []);
-    }
+    };
 
     /**
      *  Calls all actions associated with the current window.location.pathname.
      */
     function emitCallbacks(){
       let matchedPaths = findMatchedRoutes(window.location.pathname, Object.keys(routes));
-      if(!matchedPaths.length && routes['/']){
+      if(!matchedPaths.length){
+        window.history.replaceState( {}, document.title, `${base}${"/"}`);
         return routes['/'].forEach(function(fn){
           fn();
         });
       }
+
       matchedPaths.forEach(function(routeObject){
         const emitPath = routes[routeObject.route] || [];
         emitPath.forEach(function(fn){
@@ -167,7 +185,7 @@
           return;
         }
         event.preventDefault();
-        window.history.replaceState({},document.title,link.href);
+        window.history.replaceState( {}, document.title, `${base}${link.pathname}`);
         emitCallbacks();
       }
     }
